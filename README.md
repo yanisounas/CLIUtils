@@ -4,7 +4,7 @@ CLI Utils
 Installation
 -----
 
-`git clone repo`
+`git clone https://github.com/yanisounas/CLIUtils.git`
 
 `pip install -r requirements.txt`
 
