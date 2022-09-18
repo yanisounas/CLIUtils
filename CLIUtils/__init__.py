@@ -4,6 +4,7 @@ import re
 import time
 
 from datetime import datetime
+from typing import Any
 
 _COLORS = {
     "PURPLE": "\033[95m",
@@ -120,17 +121,21 @@ try:
             log_warning("The local directory is not found. Create it in CLI/local for translation")
 
 
-    def ls(code: str):
+    def ls(code: str) -> bool:
         """
         Shortcut for lang.select() with security
         """
         try:
-            lang.select(code)
+            return lang.select(code)
         except KeyError:
             if DISPLAY_WARNING:
                 log_warning(f"{code}.xml is not found. Create it in CLI/local/{code}.xml for translation")
+            return False
 
     def lp(string: str):
+        """
+        Shortcut for print(lang.get())
+        """
         print(_l(string))
 
 except ModuleNotFoundError:
@@ -141,64 +146,90 @@ except ModuleNotFoundError:
 
 try:
     import questionary
+    from questionary import Question
 
     q = questionary
 
 
-    def qp(*args, **kwargs):
+    def qp(*args, **kwargs) -> Any:
         """
         Shortcut for questionary.path()
         """
         return q.path(*args, **kwargs)
 
 
-    def qpa(*args, **kwargs):
+    def qpa(*args, **kwargs) -> Question:
         """
         Shortcut for questionary.path().ask()
         """
         return qp(*args, **kwargs).ask()
 
 
-    def qc(*args, **kwargs):
+    def qc(*args, **kwargs) -> Any:
         """
         Shortcut for questionary.confirm()
         """
         return q.confirm(*args, **kwargs)
 
 
-    def qca(*args, **kwargs):
+    def qca(*args, **kwargs) -> Question:
         """
         Shortcut for questionary.confirm().ask()
         """
         return qc(*args, **kwargs).ask()
 
 
-    def qt(*args, **kwargs):
+    def qt(*args, **kwargs) -> Any:
         """
         Shortcut for questionary.text()
         """
         return q.text(*args, **kwargs)
 
 
-    def qta(*args, **kwargs):
+    def qta(*args, **kwargs) -> Question:
         """
         Shortcut for questionary.text().ask()
         """
         return qt(*args, **kwargs).ask()
 
 
-    def qs(*args, **kwargs):
+    def qs(*args, **kwargs) -> Any:
         """
         Shortcut for questionary.select()
         """
         return q.select(*args, **kwargs)
 
 
-    def qsa(*args, **kwargs):
+    def qsa(*args, **kwargs) -> Question:
         """
         Shortcut for questionary.select().ask()
         """
         return qs(*args, **kwargs).ask()
+
+
+    def qcheck(*args, **kwargs) -> Any:
+        """
+        Shortcut for questionary.checkbox()
+        """
+        return questionary.checkbox(*args, **kwargs)
+
+    def qchecka(*args, **kwargs) -> Question:
+        """
+        Shortcut for questionary.checkbox().ask()
+        """
+        return qcheck(*args, **kwargs).ask()
+
+    def qpass(*args, **kwargs) -> Any:
+        """
+        Shortcut for questionary.password()
+        """
+        return questionary.password(*args, **kwargs)
+
+    def qpassa(*args, **kwargs) -> Question:
+        """
+        Shortcut for questionary.password().ask()
+        """
+        return qpass(*args, **kwargs).ask()
 except ModuleNotFoundError:
     if DISPLAY_WARNING:
         log_warning("Questionary shortcuts are disabled because questionary is missing. Try pip install questionary "
