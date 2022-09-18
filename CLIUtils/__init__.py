@@ -114,8 +114,8 @@ try:
 
     _l = lang.get
 
-    if os.path.exists("./CLI/local"):
-        [lang.add(f"CLI/local/{file}", file[:2]) for file in os.listdir("CLI/local/") if file.split('.')[-1] == "xml"]
+    if os.path.exists("./CLIUtils/local"):
+        [lang.add(f"CLIUtils/local/{file}", file[:2]) for file in os.listdir("CLIUtils/local/") if file.split('.')[-1] == "xml"]
     else:
         if DISPLAY_WARNING:
             log_warning("The local directory is not found. Create it in CLI/local for translation")
@@ -129,7 +129,7 @@ try:
             return lang.select(code)
         except KeyError:
             if DISPLAY_WARNING:
-                log_warning(f"{code}.xml is not found. Create it in CLI/local/{code}.xml for translation")
+                log_warning(f"{code}.xml is not found. Create it in CLIUtils/local/{code}.xml for translation")
             return False
 
     def lp(string: str):
