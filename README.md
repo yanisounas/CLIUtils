@@ -73,7 +73,7 @@ password = qpassa("Your password")
 
 Language
 =========
-`Documentation coming soon`
+`Coming soon`
 
 
 
